@@ -1,22 +1,24 @@
 <template>
   <div id="app" class="container">
     <Header />
-    <router-view />
+    <div class="container__content">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import Header from "./pages/Header";
+import Header from "./components/Header";
 
 export default {
   name: "App",
   components: {
-    Header
-  }
+    Header,
+  },
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 * {
   box-sizing: border-box;
 }
@@ -24,6 +26,15 @@ export default {
 .container {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+    max-width: 936px;
+    width: 100%;
+  }
 }
 
 #app {

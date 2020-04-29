@@ -1,8 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "@/components/Home";
-import Profile from "@/components/Profile";
-import About from "@/components/About";
+import Home from "@/pages/Home";
+import Profile from "@/pages/Profile";
+import EditProfile from "@/pages/EditProfile";
+import About from "@/pages/About";
+import Page404 from "@/pages/404";
 
 Vue.use(Router);
 
@@ -11,17 +13,29 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
     },
     {
       path: "/profile/:id",
       name: "profile",
-      component: Profile
+      component: Profile,
+      props: true,
+      children: [
+        {
+          path: "edit",
+          component: EditProfile,
+        },
+      ],
     },
     {
       path: "/about",
       name: "about",
-      component: About
-    }
-  ]
+      component: About,
+    },
+    {
+      path: "*",
+      name: "404",
+      component: Page404,
+    },
+  ],
 });

@@ -14,80 +14,60 @@
         enter-active-class="animated fadeInUp"
         leave-active-class="animated fadeOutDown"
       >
-        <li
+        <todo-item
           v-for="(todo, index) in todosFiltered"
           :key="todo.id"
-          class="todo-item"
+          :todo="todo"
+          :index="index"
+          :checkAll="!anyRemaining"
+          @removedTodo="handleRemoveTodo"
+          @finishedEdit="finishedEdit"
         >
-          <div class="todo-item-content">
-            <input
-              type="checkbox"
-              v-model="todo.completed"
-              class="todo-item-checkbox"
-            />
-            <div>{{ index }}.</div>
-            <div
-              v-if="!todo.editing"
-              @dblclick="handleEditTodo(todo)"
-              class="todo-item-label"
-              :class="{ completed: todo.completed }"
-            >
-              {{ todo.title }}
-            </div>
-            <input
-              v-else
-              class="todo-item-edit"
-              type="text"
-              v-model="todo.title"
-              @blur="handleDoneEdit(todo)"
-              @keyup.enter="handleDoneEdit(todo)"
-              @keyup.esc="handleCancelEdit(todo)"
-              v-focus
-            />
-          </div>
-          <div class="remove-item" @click="handleRemoveTodo(index)">
-            &times;
-          </div>
-        </li>
+        </todo-item>
       </transition-group>
 
-      <div class="extra-container">
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              :checked="!anyRemaining"
-              @change="handleCheckAllTodos"
-            />Check All</label
-          >
+      <div v-if="todosIsEmpty">
+        <div class="extra-container">
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                :checked="!anyRemaining"
+                @change="handleCheckAllTodos"
+              />Check All</label
+            >
+          </div>
+          <div>{{ remaining }} items left</div>
         </div>
-        <div>{{ remaining }} items left</div>
-      </div>
 
-      <div class="extra-container">
-        <div>
-          <button :class="{ active: filter === 'all' }" @click="filter = 'all'">
-            All
-          </button>
-          <button
-            :class="{ active: filter === 'active' }"
-            @click="filter = 'active'"
-          >
-            Active
-          </button>
-          <button
-            :class="{ active: filter === 'completed' }"
-            @click="filter = 'completed'"
-          >
-            Completed
-          </button>
-        </div>
-        <div>
-          <transition name="face">
-            <button v-if="showClearCompletedButton" @click="clearCompleted">
-              Clear Completed
+        <div class="extra-container">
+          <div>
+            <button
+              :class="{ active: filter === 'all' }"
+              @click="filter = 'all'"
+            >
+              All
             </button>
-          </transition>
+            <button
+              :class="{ active: filter === 'active' }"
+              @click="filter = 'active'"
+            >
+              Active
+            </button>
+            <button
+              :class="{ active: filter === 'completed' }"
+              @click="filter = 'completed'"
+            >
+              Completed
+            </button>
+          </div>
+          <div>
+            <transition name="face">
+              <button v-if="showClearCompletedButton" @click="clearCompleted">
+                Clear Completed
+              </button>
+            </transition>
+          </div>
         </div>
       </div>
     </ul>
@@ -95,8 +75,13 @@
 </template>
 
 <script>
+import TodoItem from "./TodoItem";
+
 export default {
   name: "toto-list",
+  components: {
+    TodoItem,
+  },
   data() {
     return {
       newTodo: "",
@@ -123,9 +108,11 @@ export default {
     remaining() {
       return this.todos.filter((todo) => !todo.completed).length;
     },
+
     anyRemaining() {
       return this.remaining !== 0;
     },
+
     todosFiltered() {
       if (this.filter === "all") {
         this.todos;
@@ -137,17 +124,16 @@ export default {
 
       return this.todos;
     },
+
     showClearCompletedButton() {
       return this.todos.filter((todo) => todo.completed).length > 0;
     },
-  },
-  directives: {
-    focus: {
-      inserted: function(el) {
-        el.focus();
-      },
+
+    todosIsEmpty() {
+      return this.todos.length;
     },
   },
+
   methods: {
     handleAddTodo() {
       if (this.newTodo.trim().length === 0) {
@@ -164,40 +150,33 @@ export default {
       this.newTodo = "";
       this.idForTodos++;
     },
-    handleEditTodo(todo) {
-      this.beforeEditCache = todo.title;
-      todo.editing = true;
-    },
-    handleDoneEdit(todo) {
-      if (todo.title.trim() === "") {
-        todo.title = this.beforeEditCache;
-      }
-      todo.editing = false;
-    },
-    handleCancelEdit(todo) {
-      todo.title = this.beforeEditCache;
-      todo.editing = false;
-    },
+
     handleRemoveTodo(index) {
       // this.todos.filter((item) => item.id !== index + 1);
       this.todos.splice(index, 1);
     },
+
     handleCheckAllTodos() {
       this.todos.forEach((todo) => (todo.completed = event.target.checked));
     },
+
     clearCompleted() {
       this.todos = this.todos.filter((todo) => !todo.completed);
+    },
+
+    finishedEdit(data) {
+      this.todos.splice(data.index, 1, data.todo);
     },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
 @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css");
 
 .todo-list {
-  width: 100%;
+  // width: 100%;
   padding: 10px 18px;
   font-size: 18px;
   margin-bottom: 16px;
@@ -206,7 +185,7 @@ export default {
 }
 
 .todo-input {
-  width: 100%;
+  // width: 100%;
   padding: 10px 18px;
   font-size: 18px;
   margin-bottom: 16px;
@@ -303,5 +282,11 @@ button {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 </style>

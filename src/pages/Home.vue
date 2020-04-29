@@ -23,6 +23,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.hello {
+  width: 100%;
+}
+
 h1 {
   font-weight: normal;
   text-transform: uppercase;

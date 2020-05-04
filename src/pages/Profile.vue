@@ -13,19 +13,12 @@
 
 <script>
 export default {
-  name: "Profile",
+  name: 'Profile',
   data: function() {
     return {
-      username: "vvquang",
-      fullName: "Quang Vu Van"
-    };
+      username: 'vvquang',
+      fullName: 'Quang Vu Van'
+    }
   }
-};
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1 {
-  font-weight: normal;
 }
-</style>
+</script>

@@ -1,41 +1,40 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Home from "@/pages/Home";
-import Profile from "@/pages/Profile";
-import EditProfile from "@/pages/EditProfile";
-import About from "@/pages/About";
-import Page404 from "@/pages/404";
+import Vue from 'vue'
+import Router from 'vue-router'
 
-Vue.use(Router);
+Vue.use(Router)
+
+const lazyLoadRoute = pageName => {
+  return () => import(/* webpackChunkName: "[request]" */ `@/pages/${pageName}`)
+}
 
 export default new Router({
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: Home,
+      path: '/',
+      name: 'home',
+      component: lazyLoadRoute('Home')
     },
     {
-      path: "/profile/:id",
-      name: "profile",
-      component: Profile,
+      path: '/profile/:id',
+      name: 'profile',
+      component: lazyLoadRoute('Profile'),
       props: true,
       children: [
         {
-          path: "edit",
-          component: EditProfile,
-        },
-      ],
+          path: 'edit',
+          component: lazyLoadRoute('EditProfile')
+        }
+      ]
     },
     {
-      path: "/about",
-      name: "about",
-      component: About,
+      path: '/about',
+      name: 'about',
+      component: lazyLoadRoute('About')
     },
     {
-      path: "*",
-      name: "404",
-      component: Page404,
-    },
-  ],
-});
+      path: '*',
+      name: '404',
+      component: lazyLoadRoute('Page404')
+    }
+  ]
+})

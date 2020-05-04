@@ -1,34 +1,23 @@
 <template>
-  <div class="hello">
+  <div class="home-page">
     <h1>{{ msg }}</h1>
     <TodoList />
   </div>
 </template>
 
 <script>
-import TodoList from "@/components/TodoList";
+// import TodoList from '@/components/TodoList'
+const TodoList = () => import('@/components/TodoList')
 
 export default {
-  name: "HelloWorld",
+  name: 'HomePage',
   data() {
     return {
-      msg: "Todo List",
-    };
+      msg: 'Todo List'
+    }
   },
   components: {
-    TodoList,
-  },
-};
+    TodoList
+  }
+}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.hello {
-  width: 100%;
-}
-
-h1 {
-  font-weight: normal;
-  text-transform: uppercase;
-}
-</style>

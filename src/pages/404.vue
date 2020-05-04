@@ -6,12 +6,6 @@
 
 <script>
 export default {
-  name: "404"
-};
-</script>
-
-<style scoped>
-h1 {
-  font-weight: normal;
+  name: '404'
 }
-</style>
+</script>

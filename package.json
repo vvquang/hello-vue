@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "jest --config tests/unit/jest.config.js -u --coverage",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
@@ -33,10 +33,13 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.2.2",
     "geckodriver": "^1.19.1",
+    "jest": "^26.0.0",
+    "jest-serializer-vue": "^2.0.2",
     "lint-staged": "^9.5.0",
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
+    "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.11"
   },
   "gitHooks": {

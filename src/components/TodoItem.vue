@@ -1,12 +1,12 @@
 <template>
   <div class="todo-item">
     <div class="todo-item-content">
-      <input type="checkbox" v-model="completed" class="todo-item-checkbox" @change="handleDoneEdit" />
+      <input type="checkbox" :checked="todo.completed" class="todo-item-checkbox" @change="handleCompleteItem" />
       <div>{{ index + 1 }}.</div>
-      <div v-if="!editing" @dblclick="handleEditTodo" class="todo-item-label" :class="{ completed: completed }">
-        {{ title }}
+      <div v-if="!editing" @dblclick="handleEditTodo" class="todo-item-label" :class="{ completed: todo.completed }">
+        {{ todo.title }}
       </div>
-      <input v-else class="todo-item-edit" type="text" v-model="title" @blur="handleDoneEdit" @keyup.enter="handleDoneEdit" @keyup.esc="handleCancelEdit" v-focus />
+      <input v-else class="todo-item-edit" type="text" :value="todo.title" @blur="handleDoneEdit" @keyup.enter="handleDoneEdit" @keyup.esc="handleCancelEdit" v-focus />
     </div>
     <div class="remove-item" @click="handleRemoveTodo(index)">
       &times;
@@ -15,6 +15,9 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+import { REMVOVE_TODO, CHECK_ITEM_TODO, FINISH_EDIT_TODO } from '@/store/mutation-types'
+
 export default {
   name: 'todo-item',
 
@@ -36,16 +39,8 @@ export default {
   data() {
     return {
       id: this.todo.id,
-      title: this.todo.title,
-      completed: this.todo.completed,
       editing: this.todo.editing,
       beforeEditCache: ''
-    }
-  },
-
-  watch: {
-    checkAll() {
-      this.completed = this.checkAll ? true : this.todo.completed
     }
   },
 
@@ -58,8 +53,10 @@ export default {
   },
 
   methods: {
+    ...mapMutations('todoList', [REMVOVE_TODO, CHECK_ITEM_TODO, FINISH_EDIT_TODO]),
+
     handleRemoveTodo(index) {
-      this.$emit('removedTodo', index)
+      this[REMVOVE_TODO](index)
     },
 
     handleEditTodo() {
@@ -67,19 +64,22 @@ export default {
       this.editing = true
     },
 
-    handleDoneEdit() {
-      if (this.title.trim() == '') {
-        this.title = this.beforeEditCache
-      }
+    handleCompleteItem(e) {
+      this[CHECK_ITEM_TODO]({
+        id: this.todo.id,
+        completed: e.target.checked
+      })
+    },
+
+    handleDoneEdit(e) {
       this.editing = false
 
-      this.$emit('finishedEdit', {
+      this[FINISH_EDIT_TODO]({
         index: this.index,
         todo: {
-          id: this.id,
-          title: this.title,
-          completed: this.completed,
-          editing: this.editing
+          id: this.todo.id,
+          title: e.target.value,
+          completed: this.todo.completed
         }
       })
     },
@@ -91,5 +91,3 @@ export default {
   }
 }
 </script>
-
-<style scoped></style>

@@ -8,6 +8,8 @@ const lazyLoadRoute = pageName => {
 }
 
 export default new Router({
+  mode: 'history',
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/',
@@ -31,6 +33,12 @@ export default new Router({
       name: 'about',
       component: lazyLoadRoute('About')
     },
+    {
+      path: '/help',
+      name: 'help',
+      component: lazyLoadRoute('Help')
+    },
+
     {
       path: '*',
       name: '404',

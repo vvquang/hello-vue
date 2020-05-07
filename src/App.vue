@@ -9,14 +9,14 @@
 </template>
 
 <script>
-const AppHeader = () => import('./components/AppHeader')
-const AppFooter = () => import('./components/AppFooter')
+// const AppHeader = () => import('./components/AppHeader')
+// const AppFooter = () => import('./components/AppFooter')
 
 export default {
   name: 'App',
   components: {
-    AppHeader,
-    AppFooter
+    AppHeader: () => import('./components/AppHeader'),
+    AppFooter: () => import('./components/AppFooter')
   }
 }
 </script>

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test App.vue render app 1`] = `
+<div id="app" class="container">
+  <header class="header">
+    <ul class="header__content">
+      <li>
+        <router-link-stub to="[object Object]" tag="a" event="click">Home</router-link-stub>
+      </li>
+      <li>
+        <router-link-stub to="[object Object]" tag="a" event="click">Profile</router-link-stub>
+      </li>
+      <li>
+        <router-link-stub to="[object Object]" tag="a" event="click">About</router-link-stub>
+      </li>
+    </ul>
+  </header>
+  <main class="container__content">
+    <router-view-stub name="default"></router-view-stub>
+  </main>
+  <footer class="footer">
+    <div class="footer__content">
+      <ul class="footer__content--items">
+        <li><a href="/help">Help </a></li>
+        <li><a href="/about">About</a></li>
+      </ul> <span class="footer__content--copyright">© 2020 1PAC Vietnam Co.,Ltd</span>
+    </div>
+  </footer>
+</div>
+`;

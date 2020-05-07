@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test Profile.vue render app 1`] = `
+<div class="profile" username="user name" fullname="full name">
+  <h1>Profile</h1>
+  <div>User Id: </div>
+  <div>Username: vvquang</div>
+</div>
+`;

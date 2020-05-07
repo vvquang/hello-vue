@@ -1,6 +1,6 @@
 <template>
   <div class="todo-list">
-    <input type="text" class="todo-input" placeholder="What needs to be done" :value="newTodo" @change="handleChangeInput" @keyup.enter="handleAddTodo" />
+    <input ref="inputNewTodo" type="text" class="todo-input" placeholder="What needs to be done" :value="newTodo" @change="handleChangeInput" @keyup.enter="handleAddTodo" />
     <ul>
       Todo List goes here:
       <transition-group name="fade" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
@@ -17,19 +17,19 @@
 
         <div class="extra-container">
           <div>
-            <button :class="{ active: filterTodos === 'all' }" @click="handleFilterTodos('all')">
+            <button ref="btnTodoAll" :class="{ active: filterTodos === 'all' }" @click="handleFilterTodos('all')">
               All
             </button>
-            <button :class="{ active: filterTodos === 'incomplete' }" @click="handleFilterTodos('incomplete')">
+            <button ref="btnTodoIncomplete" :class="{ active: filterTodos === 'incomplete' }" @click="handleFilterTodos('incomplete')">
               Incomplete
             </button>
-            <button :class="{ active: filterTodos === 'completed' }" @click="handleFilterTodos('completed')">
+            <button ref="btnTodoCompleted" :class="{ active: filterTodos === 'completed' }" @click="handleFilterTodos('completed')">
               Completed
             </button>
           </div>
           <div>
             <transition name="face">
-              <button v-if="showClearCompletedButton" @click="clearCompleted">
+              <button ref="btnClearCompleted" v-if="showClearCompletedButton" @click="clearCompleted">
                 Clear Completed
               </button>
             </transition>

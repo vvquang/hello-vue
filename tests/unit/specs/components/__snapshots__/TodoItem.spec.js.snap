@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoItem.vue component should render correctly 1`] = `
+<div class="todo-item">
+  <div class="todo-item-content"><input type="checkbox" class="todo-item-checkbox">
+    <div>1.</div>
+    <div class="todo-item-label">
+      Finish vue
+    </div>
+  </div>
+  <div class="remove-item">
+    ×
+  </div>
+</div>
+`;

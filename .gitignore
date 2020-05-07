@@ -24,3 +24,14 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+coverage
+
+/frontend/node_modules/
+/frontend/dist/
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/test/unit/coverage/
+/frontend/test/e2e/reports/
+/frontend/selenium-debug.log

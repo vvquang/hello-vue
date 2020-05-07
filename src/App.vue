@@ -1,37 +1,22 @@
 <template>
   <div id="app" class="container">
-    <Header />
-    <router-view />
+    <AppHeader />
+    <main class="container__content">
+      <router-view />
+    </main>
+    <AppFooter />
   </div>
 </template>
 
 <script>
-import Header from "./pages/Header";
+// const AppHeader = () => import('./components/AppHeader')
+// const AppFooter = () => import('./components/AppFooter')
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    Header
+    AppHeader: () => import('./components/AppHeader'),
+    AppFooter: () => import('./components/AppFooter')
   }
-};
+}
 </script>
-
-<style>
-* {
-  box-sizing: border-box;
-}
-
-.container {
-  width: 100%;
-  height: 100%;
-}
-
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  /* color: #2c3e50; */
-  /* margin-top: 60px; */
-}
-</style>

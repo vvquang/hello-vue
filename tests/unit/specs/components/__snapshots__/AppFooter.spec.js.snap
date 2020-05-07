@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppFooter mount should render correctly 1`] = `
+<footer class="footer">
+  <div class="footer__content">
+    <ul class="footer__content--items">
+      <li><a href="/help">Help </a></li>
+      <li><a href="/about">About</a></li>
+    </ul> <span class="footer__content--copyright">© 2020 1PAC Vietnam Co.,Ltd</span>
+  </div>
+</footer>
+`;

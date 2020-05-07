@@ -1,0 +1,3 @@
+window.initialStates = function() {
+  return {}
+}

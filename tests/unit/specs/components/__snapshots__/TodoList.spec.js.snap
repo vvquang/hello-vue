@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList.vue component should render correctly 1`] = `
+<div class="todo-list"><input type="text" placeholder="What needs to be done" class="todo-input">
+  <ul>
+    Todo List goes here:
+    <transition-group-stub name="fade" enteractiveclass="animated fadeInUp" leaveactiveclass="animated fadeOutDown">
+      <todo-item-stub todo="[object Object]" index="0"></todo-item-stub>
+      <todo-item-stub todo="[object Object]" index="1"></todo-item-stub>
+    </transition-group-stub>
+    <div>
+      <div class="extra-container">
+        <div><label><input type="checkbox">Check All</label></div>
+        <div>1 items left incomplete</div>
+      </div>
+      <div class="extra-container">
+        <div><button class="">
+            All
+          </button> <button class="">
+            Incomplete
+          </button> <button class="">
+            Completed
+          </button></div>
+        <div>
+          <transition-stub name="face"><button>
+              Clear Completed
+            </button></transition-stub>
+        </div>
+      </div>
+    </div>
+  </ul>
+</div>
+`;
